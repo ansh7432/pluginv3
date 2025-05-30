@@ -1,0 +1,23 @@
+# Binaries
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Go
+go.sum
+vendor/
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temp files
+/tmp/
+kubeconfig-*
+
+# Build artifacts
+*.log
