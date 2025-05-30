@@ -1,4 +1,4 @@
-package plugin
+package main
 
 import (
 	"context"
@@ -747,8 +747,8 @@ func (cp *ClusterPlugin) cleanupLocalResources(clusterName string) error {
 
 // Keep all the existing helper functions (same as before)
 func (cp *ClusterPlugin) getClusterConfigFromLocal(clusterName string) ([]byte, error) {
-	kubeconfig := cp.kubeconfigPath()
-	config, err := clientcmd.LoadFromFile(kubeconfig)
+	kubeconfigPath := kubeconfigPath()
+	config, err := clientcmd.LoadFromFile(kubeconfigPath)
 	if err != nil {
 		return nil, fmt.Errorf("failed to load kubeconfig: %v", err)
 	}
