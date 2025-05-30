@@ -3,157 +3,95 @@ name: KubeStellar Cluster Management
 version: 1.0.0
 description: Real cluster onboarding and management plugin for KubeStellar with enhanced functionality
 author: ansh7432 (CNCF LFX Mentee)
-repository: https://github.com/ansh7432/pluginv2
+repository: https://github.com/ansh7432/pluginv3
 license: Apache-2.0
 
 # Go module information
-module: github.com/ansh7432/pluginv2
+module: github.com/ansh7432/pluginv3
 go_version: "1.21"
 
 # Plugin compatibility
 compatibility:
-  kubestellar: '>=0.21.0'
-  go: '>=1.21'
-  kubernetes: '>=1.28.0'
+  kubestellar: ">=0.21.0"
+  go: ">=1.21"
+  kubernetes: ">=1.28.0"
 
 # API endpoints provided by the plugin
 endpoints:
-  - path: /status
-    method: GET
-    handler: GetStatusHandler
-    description: Get cluster onboarding status and health information
-  - path: /onboard
-    method: POST
-    handler: OnboardHandler
-    description: Onboard a new cluster to KubeStellar
-  - path: /detach
-    method: POST
-    handler: DetachHandler
-    description: Detach a cluster from KubeStellar
+  - path: "/status"
+    method: "GET"
+    handler: "GetStatusHandler"
+    description: "Get cluster onboarding status and health information"
+  - path: "/onboard"
+    method: "POST"
+    handler: "OnboardHandler"
+    description: "Onboard a new cluster to KubeStellar"
+  - path: "/detach"
+    method: "POST"
+    handler: "DetachHandler"
+    description: "Detach a cluster from KubeStellar"
 
 # External dependencies required
 dependencies:
-  - name: kubectl
-    version: '>=1.28.0'
-    description: Kubernetes CLI tool
-    required: true
-  - name: clusteradm
-    version: '>=0.4.0'
-    description: OCM cluster management tool
-    required: true
-  - name: git
-    description: Git version control
-    required: false
+  - "kubectl"
+  - "clusteradm"
+  - "git"
 
 # Required permissions
 permissions:
-  - cluster.read
-  - cluster.write
-  - configmap.read
-  - configmap.write
-  - secret.read
-  - csr.approve
-  - node.list
+  - "cluster.read"
+  - "cluster.write"
+  - "configmap.read"
+  - "configmap.write"
+  - "secret.read"
+  - "csr.approve"
+  - "node.list"
 
 # Plugin capabilities
 capabilities:
-  - cluster_onboarding
-  - cluster_management
-  - status_monitoring
-  - csr_approval
-  - label_management
+  - "cluster_onboarding"
+  - "cluster_management"
+  - "status_monitoring"
+  - "csr_approval"
+  - "label_management"
 
 # Build configuration
 build:
-  main_file: main.go
-  output: kubestellar-cluster-plugin.so
-  build_mode: plugin
-  build_flags:
-    - "-ldflags=-w -s"
-    - "-buildmode=plugin"
+  main_file: "main.go"
+  output: "kubestellar-cluster-plugin.so"
+  build_mode: "plugin"
 
 # Runtime configuration
 runtime:
-  health_check_interval: 30s
-  timeout:
-    onboard: 300s
-    detach: 120s
-    status: 30s
+  health_check_interval: "30s"
+  timeout_onboard: "300s"
+  timeout_detach: "120s"
+  timeout_status: "30s"
 
-# Features provided
+# Features provided (simplified)
 features:
-  - name: Enhanced CSR Approval
-    description: Multiple CSR approval methods with automatic fallbacks
-  - name: Cluster Labeling
-    description: Automatic application of cluster labels and metadata
-  - name: Health Verification
-    description: Comprehensive cluster health checks
-  - name: Clean Detachment
-    description: Proper cleanup and resource removal
-  - name: Real-time Status
-    description: Live cluster status monitoring
+  - "Enhanced CSR Approval"
+  - "Cluster Labeling"
+  - "Health Verification"
+  - "Clean Detachment"
+  - "Real-time Status"
 
-# Configuration schema
-config_schema:
-  properties:
-    its_hub_kubeconfig:
-      type: string
-      description: Path to ITS hub kubeconfig
-      default: ~/.kube/config
-    cluster_labels:
-      type: object
-      description: Default labels to apply to onboarded clusters
-      default:
-        environment: production
-        managed-by: kubestellar
-    csr_approval_methods:
-      type: array
-      description: List of CSR approval methods to try
-      default:
-        - "clusteradm"
-        - "kubectl"
-        - "direct"
-
-# Examples
-examples:
-  - name: Basic Onboarding
-    description: Onboard a cluster using local kubeconfig
-    request:
-      endpoint: /onboard
-      method: POST
-      body:
-        clusterName: "my-edge-cluster"
-  
-  - name: File Upload Onboarding
-    description: Onboard a cluster using uploaded kubeconfig
-    request:
-      endpoint: /onboard
-      method: POST
-      body:
-        clusterName: "remote-cluster"
-        kubeconfig: "apiVersion: v1\nkind: Config..."
-
-  - name: Get Status
-    description: Check cluster status
-    request:
-      endpoint: /status
-      method: GET
+# Configuration defaults
+config_defaults:
+  its_hub_kubeconfig: "~/.kube/config"
+  environment: "production"
+  managed_by: "kubestellar"
 
 # Metadata
-metadata:
-  tags:
-    - cluster-management
-    - kubestellar
-    - kubernetes
-    - onboarding
-  category: cluster-management
-  official: false
-  tested_versions:
-    - kubestellar: "0.21.0"
-    - kubernetes: "1.28.0"
-  
+tags:
+  - "cluster-management"
+  - "kubestellar"
+  - "kubernetes"
+  - "onboarding"
+
+category: "cluster-management"
+official: false
+
 # Support information
-support:
-  documentation: https://github.com/ansh7432/pluginv2/blob/main/README.md
-  issues: https://github.com/ansh7432/pluginv2/issues
-  discussions: https://github.com/ansh7432/pluginv2/discussions
+documentation_url: "https://github.com/ansh7432/pluginv3/blob/main/README.md"
+issues_url: "https://github.com/ansh7432/pluginv3/issues"
